@@ -10,19 +10,8 @@
         "esbenp.prettier-vscode",
         "ms-vscode.vscode-typescript-next",
         "docker.docker"
-      ],
-      "settings": {
-        "rust-analyzer.checkOnSave.command": "clippy",
-        "[typescript]": {
-          "editor.defaultFormatter": "esbenp.prettier-vscode",
-          "editor.formatOnSave": true
-        },
-        "[rust]": {
-          "editor.defaultFormatter": "rust-lang.rust-analyzer",
-          "editor.formatOnSave": true
-        }
-      }
+      ]
     }
   },
-  "postCreateCommand": "bash .devcontainer/post-create.sh",
+  "postCreateCommand": "bash .devcontainer/post-create.sh"
 }
