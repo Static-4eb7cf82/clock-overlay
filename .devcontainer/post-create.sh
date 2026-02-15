@@ -10,7 +10,7 @@ echo "  npm   : $(npm -v)"
 echo ""
 
 echo "Installing npm dependencies..."
-cd clock-overlay
+cd app
 npm install
 
 yellow="\033[1;33m"
