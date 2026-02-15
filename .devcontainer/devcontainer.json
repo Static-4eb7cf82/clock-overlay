@@ -9,7 +9,8 @@
         "dbaeumer.vscode-eslint",
         "esbenp.prettier-vscode",
         "ms-vscode.vscode-typescript-next",
-        "docker.docker"
+        "docker.docker",
+        "github.vscode-github-actions"
       ]
     }
   },
