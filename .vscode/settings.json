@@ -11,5 +11,5 @@
         "editor.defaultFormatter": "esbenp.prettier-vscode",
         "editor.formatOnSave": true
     },
-    "terminal.integrated.cwd": "clock-overlay"
+    "terminal.integrated.cwd": "app"
 }
