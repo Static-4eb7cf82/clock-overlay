@@ -13,6 +13,20 @@ function Clock() {
   const displayMinutes = minutes.toString().padStart(2, "0");
   const clockDisplayString = `${displayHours}:${displayMinutes} ${hours >= 12 ? "PM" : "AM"}`;
 
+  const resizeWindowToClock = () => {
+    if (!clockRef.current) {
+      return;
+    }
+    const rect = clockRef.current.getBoundingClientRect();
+    const width = Math.ceil(rect.width);
+    const height = Math.ceil(rect.height);
+    console.log("Resizing window to:", width, height);
+    invoke<void>("resize_window", {
+      width,
+      height,
+    }).catch((e) => console.error("Failed to resize window:", e));
+  };
+
   useEffect(() => {
     const interval = window.setInterval(() => {
       setNow(new Date());
@@ -22,16 +36,11 @@ function Clock() {
   }, []);
 
   useEffect(() => {
-    if (clockRef.current) {
-      const rect = clockRef.current.getBoundingClientRect();
-      const width = Math.ceil(rect.width);
-      const height = Math.ceil(rect.height);
-      console.log("Resizing window to (time update):", width, height);
-      invoke<void>("resize_window", {
-        width,
-        height,
-      }).catch((e) => console.error("Failed to resize window:", e));
-    }
+    resizeWindowToClock();
+  }, []);
+
+  useEffect(() => {
+    resizeWindowToClock();
   }, [clockDisplayString]);
 
   const handleMouseDown = async () => {
