@@ -50,7 +50,7 @@ jobs:
       - name: Determine version suffix
         id: version
         run: |
-          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
             echo "suffix=" >> $GITHUB_OUTPUT
           else
             datetime=$(date +%Y%m%d.%H%M)
