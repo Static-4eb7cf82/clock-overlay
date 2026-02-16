@@ -11,9 +11,10 @@ pub fn run() {
 
             window.set_always_on_top(true)?;
             window.set_decorations(false)?;
-            window.set_fullscreen(true)?;
+            window.set_fullscreen(false)?;
             window.set_resizable(false)?;
-            window.set_ignore_cursor_events(true)?;
+            window.set_ignore_cursor_events(false)?;
+            window.center()?;
 
             Ok(())
         })
