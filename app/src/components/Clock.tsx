@@ -34,8 +34,6 @@ function Clock() {
     <div
         ref={clockRef}
         className={`clock ${isDragging ? "dragging" : ""}`}
-        role="timer"
-        aria-live="polite"
         onMouseDown={handleMouseDown}
       >
         {displayHours}:{displayMinutes} {hours >= 12 ? "PM" : "AM"}
