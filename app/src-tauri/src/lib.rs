@@ -1,9 +1,25 @@
 use tauri::Manager;
 
+#[tauri::command]
+fn resize_window(window: tauri::WebviewWindow, width: f64, height: f64) -> Result<(), String> {
+    println!(
+        "Resize command called with width: {}, height: {}",
+        width, height
+    );
+    window
+        .set_size(tauri::Size::Physical(tauri::PhysicalSize {
+            width: width as u32,
+            height: height as u32,
+        }))
+        .map_err(|e| e.to_string())?;
+    Ok(())
+}
+
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     tauri::Builder::default()
         .plugin(tauri_plugin_opener::init())
+        .invoke_handler(tauri::generate_handler![resize_window])
         .setup(|app| {
             let window = app
                 .get_webview_window("main")
