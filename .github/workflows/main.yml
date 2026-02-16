@@ -24,9 +24,11 @@ jobs:
         run: |
           if [ "${{ github.ref }}" = "refs/heads/main" ]; then
             echo "suffix=" >> $GITHUB_OUTPUT
+            echo "On main branch, no suffix added to version."
           else
             datetime=$(date +%Y%m%d.%H%M)
             echo "suffix=-dev-${datetime}" >> $GITHUB_OUTPUT
+            echo "Version suffix: -dev-${datetime}"
           fi
 
       - name: install dependencies (ubuntu only)
