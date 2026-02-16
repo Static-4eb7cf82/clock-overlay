@@ -47,12 +47,22 @@ jobs:
         working-directory: app
         run: npm ci
 
+      - name: Determine version suffix
+        id: version
+        run: |
+          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            echo "suffix=" >> $GITHUB_OUTPUT
+          else
+            datetime=$(date +%Y%m%d.%H%M)
+            echo "suffix=-dev-${datetime}" >> $GITHUB_OUTPUT
+          fi
+
       - uses: tauri-apps/tauri-action@v0
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tagName: app-v__VERSION__ # the action automatically replaces \_\_VERSION\_\_ with the app version.
-          releaseName: 'App v__VERSION__'
+          tagName: app-v__VERSION__${{ steps.version.outputs.suffix }} # the action automatically replaces \_\_VERSION\_\_ with the app version.
+          releaseName: 'App v__VERSION__${{ steps.version.outputs.suffix }}'
           releaseBody: 'See the assets to download this version and install.'
           releaseDraft: true
           prerelease: false
