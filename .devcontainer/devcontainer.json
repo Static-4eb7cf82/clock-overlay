@@ -10,7 +10,8 @@
         "esbenp.prettier-vscode",
         "ms-vscode.vscode-typescript-next",
         "docker.docker",
-        "github.vscode-github-actions"
+        "github.vscode-github-actions",
+        "mhutchie.git-graph"
       ]
     }
   },
