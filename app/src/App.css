@@ -34,7 +34,7 @@ body {
   display: flex;
   align-items: flex-start;
   justify-content: center;
-  pointer-events: auto;
+  pointer-events: none;
 }
 
 .clock {
@@ -47,6 +47,7 @@ body {
   border-radius: 8px;
   cursor: grab;
   user-select: none;
+  pointer-events: auto;
 }
 
 .clock.dragging {
