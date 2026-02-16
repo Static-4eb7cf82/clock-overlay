@@ -7,6 +7,12 @@ function Clock() {
   const [isDragging, setIsDragging] = useState(false);
   const clockRef = useRef<HTMLDivElement>(null);
 
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const displayHours = hours % 12 === 0 ? 12 : hours % 12;
+  const displayMinutes = minutes.toString().padStart(2, "0");
+  const clockDisplayString = `${displayHours}:${displayMinutes} ${hours >= 12 ? "PM" : "AM"}`;
+
   useEffect(() => {
     const interval = window.setInterval(() => {
       setNow(new Date());
@@ -26,12 +32,7 @@ function Clock() {
         height,
       }).catch((e) => console.error("Failed to resize window:", e));
     }
-  }, [now]);
-
-  const hours = now.getHours();
-  const minutes = now.getMinutes();
-  const displayHours = hours % 12 === 0 ? 12 : hours % 12;
-  const displayMinutes = minutes.toString().padStart(2, "0");
+  }, [clockDisplayString]);
 
   const handleMouseDown = async () => {
     setIsDragging(true);
@@ -50,7 +51,7 @@ function Clock() {
         className={`clock ${isDragging ? "dragging" : ""}`}
         onMouseDown={handleMouseDown}
       >
-        {displayHours}:{displayMinutes} {hours >= 12 ? "PM" : "AM"}
+        {clockDisplayString}
     </div>
   )
 }
