@@ -18,6 +18,17 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Determine version suffix
+        id: version
+        shell: bash
+        run: |
+          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            echo "suffix=" >> $GITHUB_OUTPUT
+          else
+            datetime=$(date +%Y%m%d.%H%M)
+            echo "suffix=-dev-${datetime}" >> $GITHUB_OUTPUT
+          fi
+
       - name: install dependencies (ubuntu only)
         if: matrix.platform == 'ubuntu-22.04' # This must match the platform value defined above.
         run: |
@@ -46,16 +57,6 @@ jobs:
         # If you don't have `beforeBuildCommand` configured you may want to build your frontend here too.
         working-directory: app
         run: npm ci
-
-      - name: Determine version suffix
-        id: version
-        run: |
-          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
-            echo "suffix=" >> $GITHUB_OUTPUT
-          else
-            datetime=$(date +%Y%m%d.%H%M)
-            echo "suffix=-dev-${datetime}" >> $GITHUB_OUTPUT
-          fi
 
       - uses: tauri-apps/tauri-action@v0
         env:
