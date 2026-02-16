@@ -1,10 +1,31 @@
 import { useEffect, useState, useRef } from "react";
 import { getCurrentWindow } from "@tauri-apps/api/window";
+import { invoke } from "@tauri-apps/api/core";
 
 function Clock() {
   const [now, setNow] = useState(() => new Date());
   const [isDragging, setIsDragging] = useState(false);
   const clockRef = useRef<HTMLDivElement>(null);
+
+  const hours = now.getHours();
+  const minutes = now.getMinutes();
+  const displayHours = hours % 12 === 0 ? 12 : hours % 12;
+  const displayMinutes = minutes.toString().padStart(2, "0");
+  const clockDisplayString = `${displayHours}:${displayMinutes} ${hours >= 12 ? "PM" : "AM"}`;
+
+  const resizeWindowToClock = () => {
+    if (!clockRef.current) {
+      return;
+    }
+    const rect = clockRef.current.getBoundingClientRect();
+    const width = Math.ceil(rect.width);
+    const height = Math.ceil(rect.height);
+    console.log("Resizing window to:", width, height);
+    invoke<void>("resize_window", {
+      width,
+      height,
+    }).catch((e) => console.error("Failed to resize window:", e));
+  };
 
   useEffect(() => {
     const interval = window.setInterval(() => {
@@ -14,15 +35,21 @@ function Clock() {
     return () => window.clearInterval(interval);
   }, []);
 
-  const hours = now.getHours();
-  const minutes = now.getMinutes();
-  const displayHours = hours % 12 === 0 ? 12 : hours % 12;
-  const displayMinutes = minutes.toString().padStart(2, "0");
+  useEffect(() => {
+    resizeWindowToClock();
+    if (document.fonts?.ready) {
+      document.fonts.ready.then(resizeWindowToClock).catch(() => undefined);
+    }
+  }, []);
+
+  useEffect(() => {
+    resizeWindowToClock();
+  }, [clockDisplayString]);
 
   const handleMouseDown = async () => {
-    const appWindow = getCurrentWindow();
     setIsDragging(true);
     try {
+      const appWindow = getCurrentWindow();
       await appWindow.startDragging();
     } catch (e) {
       console.error("Failed to start dragging:", e);
@@ -36,7 +63,7 @@ function Clock() {
         className={`clock ${isDragging ? "dragging" : ""}`}
         onMouseDown={handleMouseDown}
       >
-        {displayHours}:{displayMinutes} {hours >= 12 ? "PM" : "AM"}
+        {clockDisplayString}
     </div>
   )
 }
