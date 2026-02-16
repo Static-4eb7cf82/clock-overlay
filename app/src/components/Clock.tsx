@@ -37,6 +37,9 @@ function Clock() {
 
   useEffect(() => {
     resizeWindowToClock();
+    if (document.fonts?.ready) {
+      document.fonts.ready.then(resizeWindowToClock).catch(() => undefined);
+    }
   }, []);
 
   useEffect(() => {

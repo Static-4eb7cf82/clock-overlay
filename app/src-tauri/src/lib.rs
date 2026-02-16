@@ -7,10 +7,7 @@ fn resize_window(window: tauri::WebviewWindow, width: f64, height: f64) -> Resul
         width, height
     );
     window
-        .set_size(tauri::Size::Physical(tauri::PhysicalSize {
-            width: width as u32,
-            height: height as u32,
-        }))
+        .set_size(tauri::Size::Logical(tauri::LogicalSize { width, height }))
         .map_err(|e| e.to_string())?;
     Ok(())
 }
