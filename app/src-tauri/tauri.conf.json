@@ -1,8 +1,8 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
   "productName": "Clock Overlay",
-  "version": "0.2.0",
-  "identifier": "com.clock-overlay.app",
+  "version": "0.3.0",
+  "identifier": "com.static-4eb7cf82.clock-overlay",
   "build": {
     "beforeDevCommand": "npm run dev",
     "devUrl": "http://localhost:1420",
@@ -14,8 +14,8 @@
       {
         "title": "Clock Overlay",
         "fullscreen": false,
-        "width": 800,
-        "height": 600,
+        "width": 50,
+        "height": 50,
         "transparent": true,
         "decorations": false,
         "shadow": false,
@@ -29,13 +29,21 @@
   },
   "bundle": {
     "active": true,
-    "targets": "all",
+    "targets": "nsis",
+    "resources": [
+      "icons/32x32.png"
+    ],
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",
       "icons/128x128@2x.png",
       "icons/icon.icns",
       "icons/icon.ico"
-    ]
+    ],
+    "windows": {
+      "nsis": {
+        "installerIcon": "icons/icon.ico"
+      }
+    }
   }
 }
