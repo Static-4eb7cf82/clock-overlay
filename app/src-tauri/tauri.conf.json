@@ -14,8 +14,8 @@
       {
         "title": "Clock Overlay",
         "fullscreen": false,
-        "width": 800,
-        "height": 600,
+        "width": 50,
+        "height": 50,
         "transparent": true,
         "decorations": false,
         "shadow": false,
