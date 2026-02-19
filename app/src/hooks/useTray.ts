@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { TrayIcon, TrayIconOptions } from "@tauri-apps/api/tray";
 import { Menu } from "@tauri-apps/api/menu/menu";
 import { defaultWindowIcon } from "@tauri-apps/api/app";
+import { exit } from "@tauri-apps/plugin-process";
 
 function useTray() {
   const initialized = useRef(false);
@@ -20,6 +21,7 @@ function useTray() {
               text: "Quit",
               action: async () => {
                 console.log("quit pressed");
+                await exit(0);
               },
             },
           ],

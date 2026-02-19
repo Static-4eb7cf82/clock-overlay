@@ -7,6 +7,7 @@
     "core:default",
     "opener:default",
     "core:window:allow-start-dragging",
-    "core:app:allow-default-window-icon"
+    "core:app:allow-default-window-icon",
+    "process:allow-exit"
   ]
 }
