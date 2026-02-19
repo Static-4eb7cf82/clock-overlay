@@ -6,10 +6,10 @@ A minimalist desktop clock overlay that stays on top of all your windows. Built 
 
 ## Features
 
-- **Always On Top**: The clock stays visible above all other windows
-- **Transparent Background**: Seamlessly integrates with your desktop
+- **Always On Top**: The clock stays visible above all other windows, including fullscreen applications like video games
+- **No Window Title Bar or Border**: Seamlessly integrates with your desktop
 - **Draggable**: Click and drag to position the clock anywhere on your screen
-- **Lightweight**: Built with Tauri for minimal resource usage
+- **Lightweight**: Built with Tauri for minimal resource usage, current memory usage is *~4MB*
 - **System Tray Integration**: Easy access and control from your system tray
 - **Clean Design**: Simple, readable 12-hour time format
 
