@@ -57,11 +57,16 @@ function Clock() {
     setIsDragging(false);
   };
 
+  const handleContextMenu = (e: React.MouseEvent) => {
+    e.preventDefault();
+  };
+
   return (
     <div
         ref={clockRef}
         className={`clock ${isDragging ? "dragging" : ""}`}
         onMouseDown={handleMouseDown}
+        onContextMenu={handleContextMenu}
       >
         {clockDisplayString}
     </div>
