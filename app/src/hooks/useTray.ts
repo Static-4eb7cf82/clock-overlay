@@ -1,8 +1,9 @@
 import { useEffect, useRef } from "react";
 import { TrayIcon, TrayIconOptions } from "@tauri-apps/api/tray";
 import { Menu } from "@tauri-apps/api/menu/menu";
-import { defaultWindowIcon } from "@tauri-apps/api/app";
+import { Image } from "@tauri-apps/api/image";
 import { exit } from "@tauri-apps/plugin-process";
+import { resolveResource } from "@tauri-apps/api/path";
 
 function useTray() {
   const initialized = useRef(false);
@@ -27,10 +28,8 @@ function useTray() {
           ],
         });
 
-        let icon = await defaultWindowIcon();
-        if (!icon) {
-          throw new Error("Failed to load default window icon");
-        }
+        const iconPath = await resolveResource("icons/32x32.png");
+        const icon = await Image.fromPath(iconPath);
         const options: TrayIconOptions = {
           menu: menu,
           icon: icon,
